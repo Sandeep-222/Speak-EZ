@@ -1,0 +1,18 @@
+.menu-item,
+.menu-item-active {
+    transition: background-color 0.4s ease, color 0.4s ease;
+    width: 100%;
+    padding: 8px 27px;
+    border-radius: 4px;
+}
+
+.menu-item-active {
+    cursor: pointer;
+    background-color: #263442;
+    color: #ffffff;
+}
+
+.menu-item:hover{
+    cursor: pointer;
+    color: #ffffff;
+} 

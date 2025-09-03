@@ -1,0 +1,6 @@
+.chart-container,
+.chart-container * {
+  outline: none ;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
