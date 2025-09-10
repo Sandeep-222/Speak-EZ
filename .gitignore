@@ -1,6 +1,7 @@
 # Ignore env files
 .env
 *.env
+*.env.*
 
 # Node dependencies
 node_modules/
