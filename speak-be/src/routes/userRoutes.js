@@ -10,5 +10,10 @@ Router.get('/get-all-user',getAllUsers)
 Router.put('/update-user',updateUserById)
 Router.delete('/delete-user',deleteUserById)
 Router.post('/TestCount',Update_Test_Count)
+Router.get('/health', (req, res) => {
+    console.log('Health check');
+    res.status(200).json({ message: 'OK' });
+
+});
 
 module.exports = Router;
