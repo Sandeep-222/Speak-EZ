@@ -117,7 +117,7 @@ const checkSpelling = async (sentence) => {
     //console.log();
     try{
             const symSpell = new SymSpell();
-        await symSpell.loadDictionary("frequency_dictionary_en_82_765.txt", 0, 1);
+        await symSpell.loadDictionary("/home/rahul/Documents/projects/SpeakEZ-Clone/speak-be/src/controllers/frequency_dictionary_en_82_765.txt", 0, 1);
         
         const words = sentence.replace(/[^a-zA-Z\s]/g, "").split(/\s+/);
         let corrections = [];

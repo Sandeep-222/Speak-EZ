@@ -109,6 +109,7 @@ function WrittenTestPage() {
 
   const chunkArray = (arr, size) => {
     const result = [];
+    if( !arr ) return [];
     for (let i = 0; i < arr.length; i += size) {
       result.push(arr.slice(i, i + size));
     }
@@ -253,22 +254,31 @@ function WrittenTestPage() {
                         Misspelled Words
                       </p>
 
-                      <div className="flex gap-8 flex-wrap">
-                        {chunkedWords.map((col, colIndex) => (
-                          <div key={colIndex} className="flex flex-col gap-2">
-                            {col.map((w, index) => (
-                              <div key={index} className="flex items-center">
-                                <span className="line-through text-gray-400 mr-2">
-                                  {w.word}
-                                </span>
-                                <span className="font-bold text-green-700">
-                                  {w.suggested}
-                                </span>
+                      {
+                        chunkedWords.length > 0 ? (
+                          <div className="flex gap-8 flex-wrap">
+                            {chunkedWords.map((col, colIndex) => (
+                              <div key={colIndex} className="flex flex-col gap-2">
+                                {col.map((w, index) => (
+                                  <div key={index} className="flex items-center">
+                                    <span className="line-through text-gray-400 mr-2">
+                                      {w.word}
+                                    </span>
+                                    <span className="font-bold text-green-700">
+                                      {w.suggested}
+                                    </span>
+                                  </div>
+                                ))}
                               </div>
                             ))}
                           </div>
-                        ))}
-                      </div>
+                        ):
+                        (
+                          <p className="text-[18px] font-normal text-gray-900 text-left">
+                            No misspelled words
+                          </p>
+                        )
+                      }
                       <div className="mt-4">
                         <p className="text-[20px] font-semibold text-gray-800 mb-3 text-left">Summary</p>
                         {summary && summary.length > 0 ? (
