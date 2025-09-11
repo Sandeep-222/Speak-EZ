@@ -1,4 +1,6 @@
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 const SymSpell = require("node-symspell");
 const FormData = require('form-data');
 const  { GoogleGenerativeAI } =require("@google/generative-ai");
@@ -113,26 +115,32 @@ const Getquestions=async(req,res)=>{
     }
 }
 const checkSpelling = async (sentence) => {
-
-    //console.log();
-    try{
-            const symSpell = new SymSpell();
-        await symSpell.loadDictionary("/home/rahul/Documents/projects/SpeakEZ-Clone/speak-be/src/controllers/frequency_dictionary_en_82_765.txt", 0, 1);
+    const filePath = path.join(__dirname, 'frequency_dictionary_en_82_765.txt');
+    console.log('Dictionary path:', filePath);
+    
+    try {
+        const symSpell = new SymSpell();
+        // Use the constructed filePath instead of hardcoded relative path
+        await symSpell.loadDictionary(filePath, 0, 1);
         
         const words = sentence.replace(/[^a-zA-Z\s]/g, "").split(/\s+/);
         let corrections = [];
 
         for (const word of words) {
+            if (word.trim() === "") continue; // Skip empty strings
+            
             const suggestions = symSpell.lookup(word, 2);
             if (suggestions.length > 0 && suggestions[0].term.toLowerCase() !== word.toLowerCase()) {
                 corrections.push({ word: word, suggested: suggestions[0].term });
             }
         }
-        console.log(corrections);
+        
+        console.log('Corrections found:', corrections);
         return corrections;
     }
-    catch(err){
-        console.log("error in check spelling ",err);
+    catch (err) {
+        console.log("Error in checkSpelling:", err);
+        return []; // Return empty array on error instead of undefined
     }
 };
 const EnglishScore=async(req,res)=>{
